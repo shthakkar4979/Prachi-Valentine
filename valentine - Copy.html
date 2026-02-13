@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>404 — Cutie Found 💘</title>
+  <style>
+    :root{
+      --bg1:#ffdde1;
+      --bg2:#ee9ca7;
+      --card:#ffffffcc;
+      --text:#2b2b2b;
+      --primary:#ff3b7a;
+      --primary2:#ff6aa2;
+      --shadow: 0 22px 70px rgba(0,0,0,.18);
+      --soft: 0 10px 26px rgba(0,0,0,.09);
+      --border: 1px solid rgba(255,255,255,.75);
+    }
+    *{box-sizing:border-box}
+
+    /* ✅ FIX: allow scrolling when content is tall */
+    html, body{ height:100%; }
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 20% 20%, var(--bg1), transparent 60%),
+        radial-gradient(1200px 800px at 80% 15%, #ffd1dc, transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+      overflow-y:auto; /* ✅ was blocking scroll before */
+    }
+
+    /* Floating hearts background */
+    .hearts{ position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+    .heart{
+      position:absolute;
+      opacity:.17;
+      transform: translateY(110vh);
+      animation: floatUp linear infinite;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,.15));
+      user-select:none;
+      will-change: transform;
+    }
+    @keyframes floatUp{
+      from { transform: translateY(110vh) translateX(0) rotate(0deg); }
+      to   { transform: translateY(-20vh) translateX(var(--drift)) rotate(360deg); }
+    }
+
+    .wrap{
+      position:relative;
+      z-index:1;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding:24px;
+    }
+
+    /* ✅ FIX: cap height and allow internal scroll if needed */
+    .card{
+      width:min(960px, 100%);
+      background:var(--card);
+      backdrop-filter: blur(12px);
+      border: var(--border);
+      border-radius:28px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+      max-height: calc(100vh - 48px);
+      display:flex;
+      flex-direction:column;
+    }
+
+    .top{ padding:34px 28px 18px; text-align:center; }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(255,255,255,.92);
+      font-weight:900;
+      font-size:14px;
+    }
+    .badge .dot{
+      width:10px;height:10px;border-radius:50%;
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      box-shadow: 0 0 0 4px rgba(255,59,122,.15);
+    }
+
+    h1{
+      margin:14px 0 6px;
+      font-size: clamp(28px, 4vw, 48px);
+      letter-spacing:-.02em;
+    }
+    .sub{
+      margin:0 auto;
+      max-width: 72ch;
+      opacity:.92;
+      font-size: clamp(14px, 2vw, 18px);
+      line-height:1.55;
+    }
+
+    /* ✅ FIX: this area scrolls */
+    .content{
+      padding: 0 22px 22px;
+      overflow-y:auto;
+      -webkit-overflow-scrolling: touch;
+      flex: 1 1 auto;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .panel{
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(255,255,255,.92);
+      border-radius:22px;
+      padding:18px;
+      box-shadow: var(--soft);
+    }
+
+    .question{
+      font-size: clamp(18px, 2.4vw, 26px);
+      margin:0 0 10px;
+      font-weight:950;
+      letter-spacing:-.01em;
+    }
+
+    .small{
+      font-size:12px;
+      opacity:.82;
+      line-height:1.45;
+    }
+
+    .btnRow{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top:12px;
+      position:relative;
+      min-height: 58px;
+    }
+
+    button{
+      appearance:none;
+      border:0;
+      padding:14px 18px;
+      border-radius:16px;
+      font-weight:950;
+      cursor:pointer;
+      transition: transform .14s ease, filter .14s ease;
+      font-size:16px;
+      user-select:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:transparent;
+    }
+    button:active{ transform: scale(.98); }
+
+    .primary{
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      color:white;
+      box-shadow: 0 14px 28px rgba(255,59,122,.30);
+    }
+    .primary:hover{ filter: brightness(1.06); transform: translateY(-1px); }
+    .secondary{
+      background: rgba(30,30,30,.08);
+      color:#222;
+      border: 1px solid rgba(0,0,0,.08);
+    }
+
+    .list{
+      margin:10px 0 0;
+      padding:0 0 0 18px;
+      line-height:1.75;
+    }
+
+    .photo{
+      margin-top:12px;
+      display:grid;
+      place-items:center;
+      height: 240px;
+      border-radius:18px;
+      border: 2px dashed rgba(255,59,122,.35);
+      background: rgba(255,255,255,.66);
+      overflow:hidden;
+      position:relative;
+    }
+    .photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .photo .hint{
+      position:absolute;
+      bottom:12px;
+      font-size:12px;
+      opacity:.75;
+      padding:8px 10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.74);
+      border: 1px solid rgba(255,255,255,.92);
+    }
+
+    .footer{
+      padding:14px 22px 22px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      border-top: 1px solid rgba(255,255,255,.72);
+      background: rgba(255,255,255,.35);
+      flex: 0 0 auto;
+    }
+
+    /* Page system */
+    .page{
+      display:none;
+      opacity:0;
+      transform: translateY(8px) scale(.995);
+      transition: opacity .28s ease, transform .28s ease;
+    }
+    .page.active{
+      display:block;
+      opacity:1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Modal */
+    .modalOverlay{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.35);
+      display:none;
+      place-items:center;
+      padding:18px;
+      z-index:50;
+    }
+    .modal{
+      width:min(720px, 100%);
+      background: rgba(255,255,255,.94);
+      border: 1px solid rgba(255,255,255,.92);
+      border-radius:22px;
+      box-shadow: var(--shadow);
+      padding:20px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .modal h3{ margin:8px 0 6px; font-size:26px; letter-spacing:-.02em; }
+    .modal p{ margin:0 auto 14px; max-width: 62ch; line-height:1.6; opacity:.92; }
+    .close{
+      position:absolute; top:12px; right:12px;
+      width:42px;height:42px;border-radius:14px;
+      background: rgba(0,0,0,.06);
+      font-size:18px;
+    }
+    .confetti{
+      position:absolute;
+      inset:-40px;
+      background:
+        radial-gradient(circle at 10% 30%, rgba(255,59,122,.12) 0 12px, transparent 13px),
+        radial-gradient(circle at 80% 20%, rgba(255,106,162,.14) 0 10px, transparent 11px),
+        radial-gradient(circle at 35% 80%, rgba(255,255,255,.18) 0 14px, transparent 15px);
+      animation: pop 1.2s ease-out both;
+      pointer-events:none;
+    }
+    @keyframes pop{ from{ transform:scale(.96); opacity:0;} to{ transform:scale(1); opacity:1;} }
+
+    /* Toast */
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:18px;
+      transform:translateX(-50%);
+      background: rgba(255,255,255,.90);
+      border: 1px solid rgba(255,255,255,.92);
+      box-shadow: 0 14px 30px rgba(0,0,0,.15);
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:950;
+      display:none;
+      z-index:60;
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="hearts"></div>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="top">
+        <span class="badge"><span class="dot"></span> Valentine Mode: ON</span>
+        <h1 id="titleH1">404 — Error: Cutie Found</h1>
+        <p class="sub" id="titleSub">This page is broken… because your cuteness crashed my system.</p>
+      </div>
+
+      <div class="content">
+
+        <!-- PAGE 1 -->
+        <section class="page active" id="p1">
+          <div class="grid">
+            <div class="panel">
+              <p class="question">404 — Error: Cutie Found 😌</p>
+              <p class="sub" style="text-align:left;margin:0;">
+                Hi <b>Prachi</b>… you weren’t supposed to be here.<br/>
+                But since you are… I’m not letting you leave without smiling. 🫶
+              </p>
+              <div class="btnRow">
+                <button type="button" class="primary" data-next="p2">Continue (if you’re cute) 💘</button>
+                <button type="button" class="secondary" data-next="p2">Okay fine, I’m curious 😄</button>
+              </div>
+              <p class="small" style="margin:10px 0 0;">
+                Disclaimer: this website may cause blushing, giggles, and missing me more.
+              </p>
+            </div>
+
+            <div class="panel">
+              <p class="question">Small note before you go आगे 😄</p>
+              <p class="sub" style="text-align:left;margin:0;">
+                If you’re reading this… it means you clicked.<br/>
+                And that means I’m already winning. 😌
+              </p>
+              <div class="photo">
+                <div style="text-align:center;">
+                  <div style="font-size:52px;">💗</div>
+                  <div class="small">Page 1 of 4</div>
+                </div>
+                <div class="hint">Okay now click… don’t act shy 😄</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PAGE 2 (MESSAGE) -->
+        <section class="page" id="p2">
+          <div class="grid">
+            <div class="panel">
+              <p class="question">For Prachi</p>
+              <p class="small" style="margin:0 0 12px; opacity:.85;">One month down… and a lifetime to go.</p>
+
+              <p class="question" style="margin-top:10px;">A little message for you 💌</p>
+              <p class="sub" style="text-align:left;margin:0;">
+                Hey <b>Prachi</b>,<br/><br/>
+                It’s been a month… and somehow, even with all this distance, you still feel close.<br/>
+                I miss the small things — your voice, your expressions, the way you make normal moments feel special.<br/><br/>
+                Long distance is tough, but loving you is easy.<br/>
+                And honestly… I’m proud of us. We’re building something real, one day at a time. 🫶<br/><br/>
+                Also… I keep replaying the tiny details I love about you — like the way you play with your <b>earrings</b> when you’re thinking,
+                your habit of making <b>cute pet names</b>, and your <b>soft spoken voice</b> that makes everything feel calmer.<br/><br/>
+                And one more thing I really like: the way you make me feel understood, even when we’re far apart.
+                It’s like my mind relaxes the moment I talk to you.<br/><br/>
+                — <b>Sahil</b>
+              </p>
+
+              <div class="btnRow">
+                <button type="button" class="secondary" data-next="p1">← Back</button>
+                <button type="button" class="primary" data-next="p3">Next →</button>
+              </div>
+              <p class="small" style="margin:10px 0 0;">
+                Optional: add a photo on the right (it stays on your device only).
+              </p>
+            </div>
+
+            <div class="panel">
+              <p class="question">Us 🫶</p>
+              <div class="photo" id="photoBox">
+                <div style="text-align:center;">
+                  <div style="font-size:52px;">📸</div>
+                  <div class="small">Upload a photo (optional)</div>
+                </div>
+                <div class="hint">Page 2 of 4</div>
+              </div>
+
+              <div class="panel" style="margin-top:12px;">
+                <p style="margin:0 0 8px; font-weight:950;">Add a picture (optional)</p>
+                <input id="photoInput" type="file" accept="image/*" />
+                <p class="small" style="margin:10px 0 0;">
+                  This photo stays on your device only (no upload to internet).
+                </p>
+              </div>
+
+              <h3 style="margin:14px 0 8px; letter-spacing:-.01em;">Little things I’m excited for</h3>
+              <ul class="list">
+                <li>More calls where we forget the time 😄</li>
+                <li>Holding hands again (ASAP, no delays) 🤝</li>
+                <li>Doing life together — not just planning it 🏡</li>
+                <li>Making normal days feel special… together 💗</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- PAGE 3 (VALENTINE QUESTION) -->
+        <section class="page" id="p3">
+          <div class="grid">
+            <div class="panel" id="askPanel">
+              <p class="question">Will you be my Valentine, Prachi? 🥹</p>
+              <p class="small" style="margin:0; text-align:left;">
+                Please choose carefully. The “No” button has… trust issues.
+              </p>
+              <div class="btnRow" id="valBtnRow" style="position:relative; min-height:76px;">
+                <button type="button" class="primary" id="yesBtn">Yes 💞</button>
+                <button type="button" class="secondary" id="noBtn">No 🙈</button>
+              </div>
+              <p class="small" style="margin:10px 0 0;">Tip: Try clicking “No” 😄</p>
+
+              <div class="btnRow" style="margin-top:14px;">
+                <button type="button" class="secondary" data-next="p2">← Back</button>
+                <button type="button" class="primary" data-next="p4">Skip to promises →</button>
+              </div>
+            </div>
+
+            <div class="panel">
+              <p class="question">If you press “Yes”…</p>
+              <ul class="list">
+                <li>Unlimited forehead kisses (redeem anytime) 😘</li>
+                <li>Priority support: 24/7 “I miss you” hotline 📞</li>
+                <li>Lifetime subscription to “us” 💗</li>
+                <li>And a very serious promise: I’ll always protect your heart.</li>
+              </ul>
+              <div class="photo">
+                <div style="text-align:center;">
+                  <div style="font-size:52px;">💘</div>
+                  <div class="small">Page 3 of 4</div>
+                </div>
+                <div class="hint">I already know the answer 😌</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PAGE 4 (PROMISES - combined) -->
+        <section class="page" id="p4">
+          <div class="grid">
+            <div class="panel">
+              <p class="question">Better Together — promises 🫶</p>
+
+              <p class="sub" style="text-align:left;margin:0;">
+                Prachi, I don’t want a love that’s only romantic on good days.<br/>
+                I want a love that stays — in busy days, tired days, far days… all days.<br/><br/>
+                So these are not just cute lines. These are my intentions:
+              </p>
+
+              <ul class="list" id="promises">
+                <li>I’ll choose you — in big moments and in small ones.</li>
+                <li>I’ll communicate, not disappear.</li>
+                <li>I’ll be your peace, not your stress.</li>
+                <li>I’ll celebrate you, always.</li>
+                <li>I’ll keep building “us”… even across distance.</li>
+              </ul>
+
+              <ul class="list" id="promises2">
+                <li>I will choose you — even when life gets loud.</li>
+                <li>I will respect your feelings and protect your peace.</li>
+                <li>I will love you in a way that feels steady, warm, and real.</li>
+                <li>I will keep showing up — not just with words, but with actions.</li>
+              </ul>
+
+              <div class="btnRow" style="margin-top:14px;">
+                <button type="button" class="secondary" id="copyPromises">Copy promises 📋</button>
+                <button type="button" class="primary" data-next="p1">Replay from start 🔁</button>
+              </div>
+            </div>
+
+            <div class="panel">
+              <p class="question">Final note 💗</p>
+              <p class="sub" style="text-align:left;margin:0;">
+                Prachi, I’m grateful for you.<br/>
+                This distance is temporary — but you? You’re the kind of person I want in my future.<br/><br/>
+                If you ever doubt it… come back to this page and read it again. 😌<br/><br/>
+                — Sahil
+              </p>
+
+              <div class="photo">
+                <div style="text-align:center;">
+                  <div style="font-size:52px;">💞</div>
+                  <div class="small">Page 4 of 4</div>
+                </div>
+                <div class="hint">Okay… now go smile 😄</div>
+              </div>
+
+              <div class="btnRow" style="margin-top:12px;">
+                <button type="button" class="secondary" data-next="p3">← Back to “Yes/No”</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <div class="footer">
+        <div class="small" id="footerLeft">Made with ❤️ by Sahil for Prachi</div>
+        <div class="btnRow">
+          <button type="button" class="secondary" id="backBtn">← Back</button>
+          <button type="button" class="primary" id="nextBtn">Next →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Copied ✅</div>
+
+  <script>
+    // Hearts animation
+    (function(){
+      const heartsWrap = document.getElementById("hearts");
+      const heartChars = ["💗","💖","💘","💞","💓","💝"];
+      const heartCount = 26;
+      const rand = (min,max)=> Math.random()*(max-min)+min;
+
+      for (let i=0;i<heartCount;i++){
+        const s = document.createElement("div");
+        s.className = "heart";
+        s.textContent = heartChars[Math.floor(Math.random()*heartChars.length)];
+        s.style.left = rand(0, 100) + "vw";
+        s.style.fontSize = rand(14, 28) + "px";
+        s.style.animationDuration = rand(7, 15) + "s";
+        s.style.animationDelay = rand(0, 9) + "s";
+        s.style.setProperty("--drift", rand(-20, 20) + "vw");
+        heartsWrap.appendChild(s);
+      }
+    })();
+
+    function showToast(text){
+      const toast = document.getElementById("toast");
+      toast.textContent = text || "Copied ✅";
+      toast.style.display = "block";
+      clearTimeout(window.__toastT);
+      window.__toastT = setTimeout(()=> toast.style.display="none", 1300);
+    }
+
+    // Single-file pages
+    const pages = ["p1","p2","p3","p4"];
+    let idx = 0;
+
+    const h1 = document.getElementById("titleH1");
+    const sub = document.getElementById("titleSub");
+
+    const titles = {
+      p1: ["404 — Error: Cutie Found", "This page is broken… because your cuteness crashed my system."],
+      p2: ["For Prachi", "One month down… and a lifetime to go."],
+      p3: ["Will you be my Valentine?", "Prachi, you’re my favorite notification."],
+      p4: ["Better Together 🫶", "Promises, forever energy, and a lot of love."]
+    };
+
+    function setPage(newId){
+      const newIndex = pages.indexOf(newId);
+      if (newIndex === -1) return;
+
+      const current = document.getElementById(pages[idx]);
+      if (current) current.classList.remove("active");
+
+      idx = newIndex;
+
+      const pageEl = document.getElementById(pages[idx]);
+      if (pageEl) pageEl.classList.add("active");
+
+      const t = titles[pages[idx]];
+      if (t){
+        h1.textContent = t[0];
+        sub.textContent = t[1];
+        document.title = t[0] + " 💘";
+      }
+
+      document.getElementById("backBtn").disabled = (idx === 0);
+      document.getElementById("nextBtn").disabled = (idx === pages.length - 1);
+
+      // ✅ reset scroll inside the card content each page
+      const content = document.querySelector(".content");
+      if (content) content.scrollTop = 0;
+    }
+
+    function nextPage(){ if (idx < pages.length - 1) setPage(pages[idx+1]); }
+    function prevPage(){ if (idx > 0) setPage(pages[idx-1]); }
+
+    document.getElementById("nextBtn").addEventListener("click", nextPage);
+    document.getElementById("backBtn").addEventListener("click", prevPage);
+
+    // Delegated navigation buttons
+    document.addEventListener("click", (e)=>{
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      const nextId = btn.getAttribute("data-next");
+      if (nextId) setPage(nextId);
+    });
+
+    // Photo upload
+    const photoInput = document.getElementById("photoInput");
+    const photoBox = document.getElementById("photoBox");
+    photoInput.addEventListener("change", ()=>{
+      const file = photoInput.files && photoInput.files[0];
+      if (!file) return;
+      const url = URL.createObjectURL(file);
+      photoBox.innerHTML = `<img src="${url}" alt="Us"><div class="hint">Page 2 of 4</div>`;
+      photoBox.style.borderStyle="solid";
+      showToast("Photo added 📸");
+    });
+
+    // Valentine No-dodge
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn  = document.getElementById("noBtn");
+    const valRow = document.getElementById("valBtnRow");
+    let dodgeLevel = 0;
+    const rand = (min,max)=> Math.random()*(max-min)+min;
+
+    function moveNo(){
+      dodgeLevel = Math.min(dodgeLevel + 1, 16);
+
+      const rowRect = valRow.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxX = Math.max(0, rowRect.width - btnRect.width);
+      const maxY = Math.max(0, rowRect.height - btnRect.height);
+
+      const x = Math.max(0, Math.min(maxX, rand(0, maxX)));
+      const y = Math.max(0, Math.min(maxY, rand(0, maxY)));
+
+      noBtn.style.position = "absolute";
+      noBtn.style.left = x + "px";
+      noBtn.style.top  = y + "px";
+      noBtn.style.transform = `rotate(${rand(-6,6)}deg)`;
+
+      yesBtn.style.transform = `scale(${1 + dodgeLevel * 0.04})`;
+      showToast("Nice try 😄");
+    }
+
+    noBtn.addEventListener("mouseenter", moveNo);
+    noBtn.addEventListener("click", (e)=>{ e.preventDefault(); moveNo(); });
+
+    // Copy promises (both lists)
+    document.getElementById("copyPromises").addEventListener("click", async ()=>{
+      const list1 = Array.from(document.querySelectorAll("#promises li")).map(li=> "• " + li.textContent);
+      const list2 = Array.from(document.querySelectorAll("#promises2 li")).map(li=> "• " + li.textContent);
+      const text = "Better Together — promises:\n" + [...list1, ...list2].join("\n");
+      try{ await navigator.clipboard.writeText(text); showToast("Promises copied 💗"); }
+      catch{ showToast("Copy not allowed 😅"); }
+    });
+
+    // Start
+    setPage("p1");
+  </script>
+</body>
+</html>
